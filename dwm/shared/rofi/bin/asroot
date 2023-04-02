@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
+## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+
+DIR="/usr/share/dwm/configs"
+BINDIR="/usr/share/dwm"
+
+rofi_command="rofi -theme $DIR/rofi/themes/asroot.rasi"
+
+# Apps
+terminal=" Alacritty"
+browser=" FireFox" 
+clifm=" LF"
+vim=" Vim"
+
+# Variable passed to rofi
+options="$terminal\n$browser\n$clifm\n$vim"
+term='alacritty --class alacritty-float,alacritty-float --config-file /root/.config/alacritty/alacritty.yml'
+
+# Functions
+
+chosen="$(echo -e "$options" | $rofi_command -p "Run as root" -dmenu -selected-row 0)"
+case $chosen in
+    $terminal)
+        "$BINDIR"/bin/asroot.sh "$term"
+        ;;
+    $browser)
+        "$BINDIR"/bin/asroot.sh firefox
+        ;;
+    $clifm)
+        "$BINDIR"/bin/asroot.sh "$term -e lf"
+        ;;
+    $vim)
+        "$BINDIR"/bin/asroot.sh "$term -e vim"
+        ;;
+esac
+
+
